@@ -1,0 +1,12 @@
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\bin\Debug\HyakuServer.exe
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\bin\Debug\HyakuServer.pdb
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\obj\Debug\HyakuServer.csproj.AssemblyReference.cache
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\obj\Debug\HyakuServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\obj\Debug\HyakuServer.csproj.CoreCompileInputs.cache
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\obj\Debug\HyakuServer.exe
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\obj\Debug\HyakuServer.pdb
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Limo\RiderProjects\HyakuServer\HyakuServer\obj\Debug\HyakuServer.csproj.CopyComplete
