@@ -153,15 +153,10 @@ namespace HyakuServer.Networking
         
         public void SendIntoGame(string username)
         {
-            if (username.Length < 3 || username.Length > 20)
-            {
-                new KickPacket("Invalid Username", ID).Send();
-                return;
-            }
             Player = new Player(ID, username, new Texture2D(0, 0));
             new InitiateSaveStatePacket(ID).Send();
-            new ChatMessageS2C($"<color=lightblue>{username} joined.</color>").Send();
-            foreach (Client client in HyakuServer.Clients.Values)
+            new ChatMessageS2C(-ID-1, $"<color=lightblue>{username} joined.</color>").Send();
+            foreach (Client client in Lobby.Clients)
             {
                 if (ID != client.ID)
                 {
@@ -180,8 +175,15 @@ namespace HyakuServer.Networking
             if (Player != null)
             {
                 Console.WriteLine($"{Player.username} disconnected.");
-                new ChatMessageS2C($"<color=lightblue>{Player.username} left.</color>").Send();
-                new DespawnPlayerPacket(ID).Send();
+                if (Lobby.Clients.Count > 1)
+                {
+                    new ChatMessageS2C(ID, $"<color=lightblue>{Player.username} left.</color>").Send();
+                    new DespawnPlayerPacket(ID).Send();
+                }
+                else
+                    HyakuServer.Lobbies.Remove(Lobby.Name);
+                Lobby.Clients.Remove(this);
+                Lobby = null;
                 Player = null;
             }
         }

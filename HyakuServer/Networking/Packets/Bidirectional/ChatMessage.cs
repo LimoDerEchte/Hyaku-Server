@@ -7,7 +7,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
         public override void handle(Packet packet, int clientId)
         {
             string uname = HyakuServer.Clients[clientId].Player.username;
-            new ChatMessageS2C($"<color=blue>{uname}:</color> <color=white>{packet.ReadString()}</color>").Send();
+            new ChatMessageS2C(-clientId-1, $"<color=blue>{uname}:</color> <color=white>{packet.ReadString()}</color>").Send();
         }
     }
     
