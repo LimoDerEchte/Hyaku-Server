@@ -6,11 +6,13 @@ namespace HyakuServer.Networking
     {
         public int Owner;
         public List<Client> Clients;
+        public string Password;
 
-        public Lobby(Client owner)
+        public Lobby(Client owner, string password)
         {
             Clients = new List<Client> { owner };
             Owner = owner.ID;
+            Password = password;
         }
     }
 }

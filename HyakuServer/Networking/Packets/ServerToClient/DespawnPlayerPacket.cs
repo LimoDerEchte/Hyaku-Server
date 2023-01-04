@@ -13,7 +13,7 @@ namespace HyakuServer.Networking.Packets.ServerToClient
         public override void Send()
         {
             Packet.Write(ClientID);
-            PacketHandler.SendTcpDataToAll(ClientID, Packet);
+            PacketHandler.SendTcpDataToLobby(ClientID, ClientID, Packet);
         }
     }
 }

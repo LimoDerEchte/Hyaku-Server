@@ -29,7 +29,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
             Packet.Write(Owner);
             Packet.Write(Anim);
             Packet.Write(Facing);
-            PacketHandler.SendTcpDataToAll(Owner, Packet);
+            PacketHandler.SendTcpDataToLobby(Owner, Owner, Packet);
         }
     }
 }

@@ -30,10 +30,10 @@ namespace HyakuServer.Networking.Packets.Bidirectional
         public override void Send()
         {
             Packet.Write(Message);
-            if(Client == -1)
-                PacketHandler.SendTcpDataToAll(Packet);
+            if(Client < 0)
+                PacketHandler.SendTcpDataToLobby(-Client - 1, Packet);
             else
-                PacketHandler.SendTcpDataToAll(Client, Packet);
+                PacketHandler.SendTcpDataToLobby(Client, Client, Packet);
         }
     }
 }

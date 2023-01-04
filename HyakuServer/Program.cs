@@ -7,9 +7,9 @@ namespace HyakuServer
     internal class Program
     {
         public static Config Config;
-        private static bool isRunning = true;
+        private static bool _isRunning = true;
         
-        public static void Main(string[] args)
+        public static void Main()
         {
             Config = Config.LoadConfig();
             Console.WriteLine("Starting Hyaku Server...");
@@ -21,19 +21,19 @@ namespace HyakuServer
         private static void MainThread()
         {
             Console.WriteLine($"Main thread started. Running at {60} ticks per second.");
-            DateTime _nextLoop = DateTime.Now;
+            DateTime nextLoop = DateTime.Now;
 
-            while (isRunning)
+            while (_isRunning)
             {
-                while (_nextLoop < DateTime.Now)
+                while (nextLoop < DateTime.Now)
                 {
                     GameLogic.Update();
 
-                    _nextLoop = _nextLoop.AddMilliseconds(17); 
+                    nextLoop = nextLoop.AddMilliseconds(17); 
 
-                    if (_nextLoop > DateTime.Now)
+                    if (nextLoop > DateTime.Now)
                     {
-                        Thread.Sleep(_nextLoop - DateTime.Now); 
+                        Thread.Sleep(nextLoop - DateTime.Now); 
                     }
                 }
             }

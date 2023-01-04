@@ -15,14 +15,18 @@ namespace HyakuServer.Networking.Packets.ClientToServer
             int assumedId = packet.ReadInt();
             string username = packet.ReadString();
             string password = packet.ReadString();
+            string lobby = packet.ReadString();
             string modVersion = packet.ReadString();
 
             if (modVersion == HyakuServer.ModVersion)
             {
-                if (HyakuServer.Password == null || password.Equals(HyakuServer.Password))
+                if (!HyakuServer.Lobbies.ContainsKey(lobby))
                 {
-                    Console.WriteLine(
-                        $"{HyakuServer.Clients[clientId].Tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {clientId} with username {username}");
+                    HyakuServer.Lobbies.Add(lobby, new Lobby(HyakuServer.Clients[clientId], password));
+                }
+                if (password.Equals(HyakuServer.Lobbies[lobby].Password))
+                {
+                    Console.WriteLine($"{HyakuServer.Clients[clientId].Tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {clientId} with username {username}");
                     if (clientId != assumedId)
                         Console.WriteLine($"[Warning] Player {username} (ID: {clientId}) has assumed the wrong client ID ({assumedId})!");
                     HyakuServer.Clients[clientId].SendIntoGame(username);

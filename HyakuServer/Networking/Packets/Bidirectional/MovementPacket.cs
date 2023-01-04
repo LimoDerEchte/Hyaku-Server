@@ -28,7 +28,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
         {
             Packet.Write(OwnerID);
             Packet.Write(Position);
-            PacketHandler.SendTcpDataToAll(OwnerID, Packet);
+            PacketHandler.SendTcpDataToLobby(OwnerID, OwnerID, Packet);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
         public override void Send()
         {
             Packet.Write(Ending.ToString());
-            PacketHandler.SendTcpDataToAll(ClientID, Packet);
+            PacketHandler.SendTcpDataToLobby(ClientID, ClientID, Packet);
         }
     }
 }

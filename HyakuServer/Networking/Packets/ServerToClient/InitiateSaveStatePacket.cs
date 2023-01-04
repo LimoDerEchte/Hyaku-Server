@@ -14,12 +14,12 @@ namespace HyakuServer.Networking.Packets.ServerToClient
         
         public override void Send()
         {
-            Packet.Write((int)HyakuServer.Save.UnlockedEndings.Count);
+            Packet.Write(HyakuServer.Save.UnlockedEndings.Count);
             foreach (EndingTypes ending in HyakuServer.Save.UnlockedEndings)
             {
                 Packet.Write(ending.ToString());
             }
-            Packet.Write((int)HyakuServer.Save.UnlockedHints.Count);
+            Packet.Write(HyakuServer.Save.UnlockedHints.Count);
             foreach (EndingTypes ending in HyakuServer.Save.UnlockedHints)
             {
                 Packet.Write(ending.ToString());

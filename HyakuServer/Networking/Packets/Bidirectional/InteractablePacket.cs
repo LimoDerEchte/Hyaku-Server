@@ -32,7 +32,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
             Packet.Write(Pos);
             Packet.Write(Type);
             Packet.Write(State);
-            PacketHandler.SendTcpDataToAll(ClientID, Packet);
+            PacketHandler.SendTcpDataToLobby(ClientID, ClientID, Packet);
         }
     }
 }

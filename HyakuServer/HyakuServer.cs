@@ -16,6 +16,7 @@ namespace HyakuServer
         public static string Password { get; private set; }
         public static SaveState Save { get; private set; }
         public static readonly Dictionary<int, Client> Clients = new Dictionary<int, Client>();
+        public static readonly Dictionary<string, Lobby> Lobbies = new Dictionary<string, Lobby>();
         public static readonly string ModVersion = "0.1.3"; 
 
         private static TcpListener _tcpListener;

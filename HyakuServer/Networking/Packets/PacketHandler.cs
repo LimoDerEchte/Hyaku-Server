@@ -22,7 +22,7 @@ namespace HyakuServer.Networking.Packets
                 serverBound.Add(packet.ID, packet);
             }
             Console.WriteLine($"Loaded {clientBound.Count} Client to Server and {serverBound.Count} Server to Client Packets");
-            Console.WriteLine(String.Join(", ", clientBound.Keys) + "  |  " + String.Join(", ", serverBound.Keys));
+            Console.WriteLine(String.Join(", ", clientBound.Keys) + "  <>  " + String.Join(", ", serverBound.Keys));
         }
 
         public void Handle(Packet packet, int clientId)
@@ -45,28 +45,48 @@ namespace HyakuServer.Networking.Packets
         
         public static void SendTcpData(int toClient, Packet packet, AsyncCallback callback)
         {
+            if (HyakuServer.Clients[toClient].Tcp.socket == null) return;
             packet.WriteLength();
             HyakuServer.Clients[toClient].Tcp.SendData(packet, callback);
+        }
+
+        public static void SendTcpDataToLobby(int client, Packet packet)
+        {
+            if (HyakuServer.Clients[client].Lobby == null) return;
+            packet.WriteLength();
+            foreach (Client c in HyakuServer.Clients[client].Lobby.Clients)
+            {
+                c.Tcp.SendData(packet, null);
+            }
+        }
+        
+        public static void SendTcpDataToLobby(int exceptClient, int client, Packet packet)
+        {
+            if (HyakuServer.Clients[client].Lobby == null) return;
+            packet.WriteLength();
+            foreach (Client c in HyakuServer.Clients[client].Lobby.Clients)
+            {
+                if(c.ID != exceptClient)
+                    c.Tcp.SendData(packet, null);
+            }
         }
 
         public static void SendTcpDataToAll(Packet packet)
         {
             packet.WriteLength();
-            for (int i = 1; i <= HyakuServer.MaxPlayers; i++)
+            foreach (Client c in HyakuServer.Clients.Values)
             {
-                HyakuServer.Clients[i].Tcp.SendData(packet, null);
+                c.Tcp.SendData(packet, null);
             }
         }
 
         public static void SendTcpDataToAll(int exceptClient, Packet packet)
         {
             packet.WriteLength();
-            for (int i = 1; i <= HyakuServer.MaxPlayers; i++)
+            foreach (Client c in HyakuServer.Clients.Values)
             {
-                if (i != exceptClient)
-                {
-                    HyakuServer.Clients[i].Tcp.SendData(packet, null);
-                }
+                if (c.ID != exceptClient)
+                    c.Tcp.SendData(packet, null);
             }
         }
     }

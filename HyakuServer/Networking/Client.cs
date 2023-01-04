@@ -16,6 +16,7 @@ namespace HyakuServer.Networking
         public int ID;
         public Player Player;
         public TCP Tcp;
+        public Lobby Lobby;
         
         public long LastPacket;
 
@@ -175,6 +176,7 @@ namespace HyakuServer.Networking
 
         public void Disconnect()
         {
+            Tcp.Disconnect();
             if (Player != null)
             {
                 Console.WriteLine($"{Player.username} disconnected.");
@@ -182,7 +184,6 @@ namespace HyakuServer.Networking
                 new DespawnPlayerPacket(ID).Send();
                 Player = null;
             }
-            Tcp.Disconnect();
         }
     }
 }
