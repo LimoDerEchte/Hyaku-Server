@@ -8,17 +8,17 @@ namespace HyakuServer.DataHandling
 {
     public class GameLogic
     {
-        public static int keepAliveCooldown = 60;
+        public static int KeepAliveCooldown = 60;
         public static int SaveCooldown = 18000;
         
         public static void Update()
         {
             ThreadManager.Update();
-            keepAliveCooldown--;
+            KeepAliveCooldown--;
             SaveCooldown--;
-            if (keepAliveCooldown <= 0)
+            if (KeepAliveCooldown <= 0)
             {
-                keepAliveCooldown = 60;
+                KeepAliveCooldown = 60;
                 new KeepAlivePacketS2C().Send();
                 long currentTime = DateTime.UtcNow.Ticks;
                 foreach (Client client in HyakuServer.Clients.Values)
@@ -26,7 +26,7 @@ namespace HyakuServer.DataHandling
                     if (client.Tcp.socket != null)
                     {
                         long offset = currentTime - client.LastPacket;
-                        if (new TimeSpan(offset).TotalMilliseconds > 3000)
+                        if (new TimeSpan(offset).TotalSeconds > 3)
                         {
                             new KickPacket("Timed Out", client.ID).Send();
                         }

@@ -28,14 +28,10 @@ namespace HyakuServer.Networking.Packets
         public void Handle(Packet packet, int clientId)
         {
             int packetId = packet.ReadInt();
-            try
-            {
+            if(clientBound.ContainsKey(packetId))
                 clientBound[packetId].handle(packet, clientId);
-            }
-            catch (KeyNotFoundException)
-            {
+            else
                 Console.WriteLine("[Warning] Invalid Packet ID from " + clientId + " (Packet ID: " + packetId + ")");
-            }
         }
         
         public static void SendTcpData(int toClient, Packet packet)

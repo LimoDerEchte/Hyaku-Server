@@ -16,7 +16,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
     {
         public Vector3 Pos;
         public int Type, State;
-        public int ClientID;
+        public readonly int ClientId;
 
         public InteractablePacketS2C() : base(12) { }
         public InteractablePacketS2C(Vector3 position, int type, int state, int clientID) : base(12)
@@ -24,7 +24,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
             Pos = position;
             Type = type;
             State = state;
-            ClientID = clientID;
+            ClientId = clientID;
         }
         
         public override void Send()
@@ -32,7 +32,7 @@ namespace HyakuServer.Networking.Packets.Bidirectional
             Packet.Write(Pos);
             Packet.Write(Type);
             Packet.Write(State);
-            PacketHandler.SendTcpDataToLobby(ClientID, ClientID, Packet);
+            PacketHandler.SendTcpDataToLobby(ClientId, ClientId, Packet);
         }
     }
 }

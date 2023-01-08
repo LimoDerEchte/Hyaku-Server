@@ -8,15 +8,15 @@ namespace HyakuServer.DataHandling
     {
         public static readonly Regex NameRegex = new Regex("^[a-zA-Z0-9_-]{3,16}$");
         
-        public int id;
-        public string username;
+        public int Id;
+        public string Username;
         public Texture2D Texture;
 
-        public Player(int _id, string _username, Texture2D _texture)
+        public Player(int id, string username, Texture2D texture)
         {
-            id = _id;
-            username = _username;
-            Texture = _texture;
+            Id = id;
+            Username = username;
+            Texture = texture;
         }
     }
 }

@@ -27,7 +27,10 @@ namespace HyakuServer.Networking.Packets.ServerToClient
             Packet.Write(Username);
             Packet.Write(Texture2D);
             Packet.Write(ClientID);
-            PacketHandler.SendTcpDataToLobby(ToID, ToID, Packet);
+            if(ToID < 0)
+                PacketHandler.SendTcpDataToLobby(-ToID-1, -ToID-1, Packet);
+            else
+                PacketHandler.SendTcpData(ToID, Packet);
         }
     }
 }

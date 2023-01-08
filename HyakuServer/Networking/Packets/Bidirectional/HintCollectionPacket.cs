@@ -15,10 +15,10 @@ namespace HyakuServer.Networking.Packets.Bidirectional
                 {
                     HyakuServer.Save.AddHint(ending);
                     new HintCollectionPacketS2C(ending, clientId).Send();
-                    Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.username + " unlocked hint " + ending.ToString());
+                    Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.Username + " unlocked hint " + ending.ToString());
                 }
             }else
-                Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.username + " tried to send invalid hint!");
+                Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.Username + " tried to send invalid hint!");
         }
     }
     

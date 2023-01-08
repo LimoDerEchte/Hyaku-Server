@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using HyakuServer.DataHandling;
 
 namespace HyakuServer.Networking.Packets.Bidirectional
@@ -15,10 +16,11 @@ namespace HyakuServer.Networking.Packets.Bidirectional
                 {
                     HyakuServer.Save.AddEnding(ending);
                     new EndingCompletionPacketS2C(ending, clientId).Send();
-                    Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.username + " unlocked ending " + ending.ToString());
+                    new MovementPacketS2C(new Vector3(9999, 9999, 9999), clientId).Send();
+                    Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.Username + " unlocked ending " + ending.ToString());
                 }
             }else
-                Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.username + " tried to send invalid Ending!");
+                Console.WriteLine("Player " + HyakuServer.Clients[clientId].Player.Username + " tried to send invalid Ending!");
         }
     }
     

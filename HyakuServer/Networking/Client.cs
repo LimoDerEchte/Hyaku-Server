@@ -76,6 +76,8 @@ namespace HyakuServer.Networking
             {
                 try
                 {
+                    if(_result == null || stream == null)
+                        return;
                     int _byteLength = stream.EndRead(_result);
                     if (_byteLength <= 0)
                     {
@@ -156,17 +158,10 @@ namespace HyakuServer.Networking
             Player = new Player(ID, username, new Texture2D(0, 0));
             new InitiateSaveStatePacket(ID).Send();
             new ChatMessageS2C(-ID-1, $"<color=lightblue>{username} joined.</color>").Send();
+            new SpawnPlayerPacket(Player.Username, Player.Id, Player.Texture, -ID-1).Send();
             foreach (Client client in Lobby.Clients)
-            {
                 if (ID != client.ID)
-                {
-                    new SpawnPlayerPacket(Player.username, Player.id, Player.Texture, client.ID).Send();
-                    if (client.Player != null)
-                    {
-                        new SpawnPlayerPacket(client.Player.username, client.Player.id, client.Player.Texture, ID).Send();
-                    }
-                }
-            }
+                    new SpawnPlayerPacket(client.Player.Username, client.Player.Id, client.Player.Texture, ID).Send();
         }
 
         public void Disconnect()
@@ -174,10 +169,10 @@ namespace HyakuServer.Networking
             Tcp.Disconnect();
             if (Player != null)
             {
-                Console.WriteLine($"{Player.username} disconnected.");
+                Console.WriteLine($"{Player.Username} disconnected.");
                 if (Lobby.Clients.Count > 1)
                 {
-                    new ChatMessageS2C(ID, $"<color=lightblue>{Player.username} left.</color>").Send();
+                    new ChatMessageS2C(ID, $"<color=lightblue>{Player.Username} left.</color>").Send();
                     new DespawnPlayerPacket(ID).Send();
                 }
                 else

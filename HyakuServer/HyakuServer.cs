@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using HyakuServer.DataHandling;
 using HyakuServer.Networking;
 using HyakuServer.Networking.Packets;
@@ -17,7 +18,7 @@ namespace HyakuServer
         public static SaveState Save { get; private set; }
         public static readonly Dictionary<int, Client> Clients = new Dictionary<int, Client>();
         public static readonly Dictionary<string, Lobby> Lobbies = new Dictionary<string, Lobby>();
-        public static readonly string ModVersion = "0.1.3"; 
+        public static readonly string ModVersion = "0.2.0-Dev-1"; 
 
         private static TcpListener _tcpListener;
         public static PacketHandler PacketHandler;
@@ -43,6 +44,8 @@ namespace HyakuServer
             _tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
             Console.WriteLine($"Server started on port {Port}");
+            
+            new Thread(QueryServer.Run).Start();
         }
 
         private static void TCPConnectCallback(IAsyncResult _result)

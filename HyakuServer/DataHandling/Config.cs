@@ -7,8 +7,10 @@ namespace HyakuServer.DataHandling
     public class Config
     {
         public int Port = 26950;
+        public int QueryPort = 26951;
         public int MaxPlayers = 10;
         public string Password = "";
+        public bool UseLobbies = true;
 
         public static Config LoadConfig()
         {
@@ -18,12 +20,6 @@ namespace HyakuServer.DataHandling
             {
                 StreamReader r = new StreamReader(path);
                 string json = r.ReadToEnd();
-                /*string line = r.ReadLine();
-                while (line != null)
-                {
-                    json += line;
-                    line = r.ReadLine();
-                }*/
                 r.Close();
                 JsonConvert.PopulateObject(json, saveState);
                 Console.WriteLine("Loaded Config.json");
@@ -35,9 +31,11 @@ namespace HyakuServer.DataHandling
 
         private static readonly string FileContent =
             "{\n" +
-            "  \"Port\": 26950,\n\n" +
+            "  \"Port\": 26950,\n" +
+            "  \"QueryPort\": 26951,\n\n" +
             "  \"MaxPlayers\": 10,\n" +
-            "  \"Password\": \"\"\n" +
+            "  \"Password\": \"\",\n\n" +
+            "  \"UseLobbies\": false\n" +
             "}";
 
         public static void GenerateConfig()
